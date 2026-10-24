@@ -6,47 +6,95 @@ registerBtn.addEventListener('click', () => {
     container.classList.add('active');
 })
 
-// Submit form via Node.js Backend (SMTP)
+// ==========================================
+// EmailJS Configuration
+// Replace these with your actual EmailJS credentials from https://dashboard.emailjs.com/
+// ==========================================
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";       // e.g. "AbCdEf123456"
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";       // e.g. "service_fitness"
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";     // e.g. "template_welcome"
+
+// Initialize EmailJS
+if (typeof emailjs !== "undefined" && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+// Handle New User Registration Form Submission
 document.addEventListener("DOMContentLoaded", function() {
-    // Attempt to attach the event listener to the form
     const form = document.getElementById("email-form");
     if (form) {
         form.addEventListener("submit", function(event) {
             event.preventDefault();
 
-            // Use the correct IDs according to your HTML
-            const emailInput = document.getElementById("user_email") ? document.getElementById("user_email").value.trim() : (document.getElementById("email") ? document.getElementById("email").value.trim() : "");
-            const nameInput = document.getElementById("name") ? document.getElementById("name").value.trim() : "User";
+            const usernameInput = document.getElementById("user_name");
+            const emailInput = document.getElementById("user_email");
+            const submitBtn = form.querySelector('button[type="submit"]');
 
-            if (!emailInput || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput)) {
+            const userName = usernameInput ? usernameInput.value.trim() : "Fitness Enthusiast";
+            const userEmail = emailInput ? emailInput.value.trim() : "";
+
+            if (!userEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)) {
                 alert("Please enter a valid email address.");
                 return;
             }
 
-            // Send data to your Node.js backend
-            fetch('http://localhost:3000/send-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user_name: nameInput,
-                    to_email: emailInput
+            const originalBtnText = submitBtn ? submitBtn.innerText : "Register";
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Registering...";
+            }
+
+            // Check if EmailJS credentials have been configured
+            if (typeof emailjs !== "undefined" && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+                const templateParams = {
+                    user_name: userName,
+                    to_name: userName,
+                    to_email: userEmail,
+                    reply_to: "fitnessplanet568@gmail.com",
+                    message: "Welcome to Fitness Planet! Your account has been registered successfully."
+                };
+
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                    .then(function(response) {
+                        console.log("EmailJS SUCCESS!", response.status, response.text);
+                        alert(`Welcome ${userName}! Registered successfully and welcome email sent.`);
+                        form.reset();
+                    })
+                    .catch(function(error) {
+                        console.error("EmailJS FAILED...", error);
+                        alert("Registered successfully! (Note: Could not send email via EmailJS: " + (error.text || error.message || "Please check credentials") + ")");
+                    })
+                    .finally(function() {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerText = originalBtnText;
+                        }
+                    });
+            } else {
+                // Fallback to local Node server if EmailJS keys haven't been replaced yet
+                fetch('http://localhost:3000/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_name: userName, to_email: userEmail })
                 })
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("Registered Successfully");
-                    console.log('Email sent via SMTP server!');
-                } else {
-                    alert("Failed to send email.");
-                    console.error('Failed to send email.');
-                }
-            })
-            .catch(error => {
-                alert("Error connecting to the server.");
-                console.error('Error:', error);
-            });
+                .then(response => {
+                    if (response.ok) {
+                        alert("Registered Successfully! Welcome email sent.");
+                        form.reset();
+                    } else {
+                        alert("Registered successfully, but server email failed.");
+                    }
+                })
+                .catch(() => {
+                    alert("Registered! (EmailJS is ready: please fill your EmailJS keys in js/signin.js to send emails directly).");
+                })
+                .finally(() => {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerText = originalBtnText;
+                    }
+                });
+            }
         });
     }
 });
