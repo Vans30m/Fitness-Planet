@@ -28,16 +28,16 @@
     <main class="page-wrapper">
         <div class="container glass-card">
             <div class="form-box login">
-                <form action="#">
+                <form action="#" id="login-form">
                     <h1 class="login">Welcome Back</h1>
                     <p class="auth-sub">Sign in to track workouts and access your account.</p>
 
                     <div class="input-box">
-                        <input type="text" placeholder="Username" required>
+                        <input type="text" id="login_username" name="login_username" placeholder="Username" required>
                         <i class='bx bxs-user'></i>
                     </div>
                     <div class="input-box">
-                        <input type="password" class="password-input" placeholder="Password" required>
+                        <input type="password" id="login_password" name="login_password" class="password-input" placeholder="Password" required>
                         <i class='bx bxs-lock-alt icon-lock'></i>
                         <i class='bx bx-show toggle-password' title="Toggle Password Visibility"></i>
                     </div>
@@ -62,7 +62,7 @@
                         <i class='bx bxs-envelope'></i>
                     </div>
                     <div class="input-box">
-                        <input type="password" class="password-input" placeholder="Password" required>
+                        <input type="password" id="user_password" name="user_password" class="password-input" placeholder="Password" required>
                         <i class='bx bxs-lock-alt icon-lock'></i>
                         <i class='bx bx-show toggle-password' title="Toggle Password Visibility"></i>
                     </div>
@@ -95,6 +95,9 @@
                 }
                 if (typeof highlightActiveNavLink === 'function') {
                     highlightActiveNavLink();
+                }
+                if (typeof updateNavbarAuthState === 'function') {
+                    updateNavbarAuthState();
                 }
             });
     </script>

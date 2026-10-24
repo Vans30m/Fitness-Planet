@@ -1,47 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navigation</title>
-    <link rel="stylesheet" href="css/navbar.css">
-</head>
-
-<body>
-
-    <div id="nav">
-        <a href="index.html" class="logo-link"><img src="pictures/image_transparent.png" alt="Fitness Planet Logo"></a>
-        <div class="nav-right-actions">
-            <img class="chatboticon" src="pictures/chatbot.svg" alt="chatbot-png" title="Toggle AI Assistant"
-                style="cursor: pointer;">
-            
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-
-        <div class="navb" id="navMenu">
-            <h4 class="navbar"><a href="index.html">Home</a></h4>
-            <h4 class="navbar"><a href="index.html#bmi-section">BMI</a></h4>
-            <h4 class="navbar"><a href="about.html">About Us</a></h4>
-            <h4 class="navbar"><a href="cart.html">Store</a></h4>
-            <h4 class="navbar"><a href="signin.html">Sign In</a></h4>
-        </div>
+<div id="nav">
+    <a href="index.html" class="logo-link"><img src="pictures/image_transparent.png" alt="Fitness Planet Logo"></a>
+    <div class="nav-right-actions">
+        <img class="chatboticon" src="pictures/chatbot.svg" alt="chatbot-png" title="Toggle AI Assistant"
+            style="cursor: pointer;">
+        
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 
-    <!-- GSAP core -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
-        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="js/navbar.js"></script>
-</body>
-
-</html>
+    <div class="navb" id="navMenu">
+        <h4 class="navbar"><a href="index.html">Home</a></h4>
+        <h4 class="navbar"><a href="index.html#bmi-section">BMI</a></h4>
+        <h4 class="navbar"><a href="about.html">About Us</a></h4>
+        <h4 class="navbar"><a href="cart.html">Store</a></h4>
+        <h4 class="navbar nav-signin-link"><a href="signin.html">Sign In</a></h4>
+        <div class="nav-user-profile" id="navUserProfile" style="display: none;">
+            <div class="user-avatar-badge" id="navUserAvatar" title="User Profile">U</div>
+            <span class="user-display-name" id="navUserName">User</span>
+            <button class="nav-logout-btn" id="navLogoutBtn" title="Logout">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Logout
+            </button>
+        </div>
+    </div>
+</div>
