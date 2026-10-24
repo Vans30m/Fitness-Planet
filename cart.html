@@ -124,6 +124,9 @@
                 if (typeof highlightActiveNavLink === 'function') {
                     highlightActiveNavLink();
                 }
+                if (typeof updateNavbarAuthState === 'function') {
+                    updateNavbarAuthState();
+                }
             });
 
         fetch('footer.html')

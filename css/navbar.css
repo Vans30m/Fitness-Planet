@@ -430,3 +430,96 @@
         padding: 16px;
     }
 }
+
+/* ========================================================
+   User Profile Pill & Avatar in Navbar
+   ======================================================== */
+.nav-user-profile {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 12px 4px 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(241, 196, 15, 0.35);
+    border-radius: 30px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.nav-user-profile:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #f1c40f;
+    box-shadow: 0 0 16px rgba(241, 196, 15, 0.25);
+}
+
+.user-avatar-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f1c40f, #e67e22);
+    color: #000000;
+    font-weight: 800;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.user-display-name {
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ffffff;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.3px;
+}
+
+.nav-logout-btn {
+    background: rgba(231, 76, 60, 0.15);
+    border: 1px solid rgba(231, 76, 60, 0.4);
+    color: #ff6b6b;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.25s ease;
+}
+
+.nav-logout-btn:hover {
+    background: #e74c3c;
+    color: #ffffff;
+    border-color: #e74c3c;
+    box-shadow: 0 0 12px rgba(231, 76, 60, 0.4);
+    transform: translateY(-1px);
+}
+
+.nav-logout-btn svg {
+    stroke: currentColor;
+}
+
+/* Mobile adjustments for nav user profile */
+@media (max-width: 768px) {
+    .nav-user-profile {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: space-between;
+        padding: 8px 16px;
+    }
+
+    .user-display-name {
+        max-width: 160px;
+    }
+}
